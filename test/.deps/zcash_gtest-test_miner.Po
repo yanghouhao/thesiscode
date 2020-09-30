@@ -1,0 +1,4 @@
+gtest/zcash_gtest-test_miner.o: gtest/test_miner.cpp \
+ /usr/include/stdc-predef.h
+
+/usr/include/stdc-predef.h:

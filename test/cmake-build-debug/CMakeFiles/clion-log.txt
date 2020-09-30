@@ -1,0 +1,77 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/home/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake -G "CodeBlocks - Unix Makefiles" /mnt/f/github.com/tjfoc-sprout/test
+-- The C compiler identification is GNU 7.5.0
+-- The CXX compiler identification is GNU 7.5.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning (dev) at /home/chenxu/vcpkg/installed/x64-linux/share/GTest/GTestConfig.cmake:27 (if):
+  if given arguments:
+
+    "ON"
+
+  An argument named "ON" appears in a conditional statement.  Policy CMP0012
+  is not set: if() recognizes numbers and boolean constants.  Run "cmake
+  --help-policy CMP0012" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+Call Stack (most recent call first):
+  /home/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake:493 (_find_package)
+  CMakeLists.txt:5 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - not found
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+gtest_include_dir=
+gtest_library=
+threads=-lpthread
+-- Found OpenSSL: /home/chenxu/vcpkg/installed/x64-linux/debug/lib/libcrypto.a (found version "1.1.1g") 
+APP_ZCASH_SPROUT_SRC=../src/zcash/Address.cpp../src/zcash/History.cpp../src/zcash/IncrementalMerkleTree.cpp../src/zcash/JoinSplit.cpp../src/zcash/Note.cpp../src/zcash/NoteEncryption.cpp../src/zcash/prf.cpp../src/zcash/util.cpp../src/support/cleanse.cpp../src/support/pagelocker.cpp../src/script/interpreter.cpp../src/script/ismine.cpp../src/script/script.cpp../src/script/script_error.cpp../src/script/sigcache.cpp../src/script/sign.cpp../src/script/standard.cpp../src/script/zcashconsensus.cpp../src/primitives/block.cpp../src/primitives/transaction.cpp../src/crypto/aes.cpp../src/crypto/equihash.cpp../src/crypto/hmac_sha256.cpp../src/crypto/hmac_sha512.cpp../src/crypto/ripemd160.cpp../src/crypto/sha1.cpp../src/crypto/sha256.cpp../src/crypto/sha512.cpp../src/consensus/funding.cpp../src/consensus/params.cpp../src/consensus/upgrades.cpp../src/compat/glibc_sanity.cpp../src/compat/glibcxx_sanity.cpp../src/compat/strnlen.cpp
+-- Configuring done
+CMake Warning (dev) at /home/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake:381 (_add_executable):
+  Policy CMP0003 should be set before this line.  Add code such as
+
+    if(COMMAND cmake_policy)
+      cmake_policy(SET CMP0003 NEW)
+    endif(COMMAND cmake_policy)
+
+  as early as possible but after the most recent call to
+  cmake_minimum_required or cmake_policy(VERSION).  This warning appears
+  because target "gtest_simple_test" links to some libraries for which the
+  linker must search:
+
+    gtest_simple_lib, -lpthread, rustzcash, m, dl, boost_thread, boost_system
+    boost_filesystem, -lboost_program_options, -lboost_chrono
+    -lboost_prg_exec_monitor, -lboost_test_exec_monitor
+    -lboost_unit_test_framework, sodium, dl, -lpthread
+
+  and other libraries with known full path:
+
+    /home/chenxu/vcpkg/installed/x64-linux/debug/lib/libgmockd.a
+    /home/chenxu/vcpkg/installed/x64-linux/debug/lib/manual-link/libgmock_maind.a
+
+  CMake is adding directories in the second list to the linker search path in
+  case they are needed to find libraries from the first list (for backwards
+  compatibility with CMake 2.4).  Set policy CMP0003 to OLD or NEW to enable
+  or disable this behavior explicitly.  Run "cmake --help-policy CMP0003" for
+  more information.
+Call Stack (most recent call first):
+  CMakeLists.txt:34 (add_executable)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Generating done
+-- Build files have been written to: /mnt/f/github.com/tjfoc-sprout/test/cmake-build-debug

@@ -1,0 +1,3 @@
+/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/CMakeFiles/gtest_simple_lib.dir
+/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/CMakeFiles/edit_cache.dir

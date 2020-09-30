@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\home\;CMake Files\..\..\..\..\..\home\chenxu\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\scripts\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\scripts\buildsystems\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\;CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\unofficial-sodium\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_simple_lib">
+				<Option output="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/libgtest_simple_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/f/github.com/zcash-sprout/src/."/>
+					<Add directory="/mnt/f/github.com/zcash-sprout/src/./3rd/include"/>
+					<Add directory="/mnt/f/github.com/zcash-sprout/src/./rust/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtest_simple_lib"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_simple_lib/fast">
+				<Option output="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/libgtest_simple_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/f/github.com/zcash-sprout/src/."/>
+					<Add directory="/mnt/f/github.com/zcash-sprout/src/./3rd/include"/>
+					<Add directory="/mnt/f/github.com/zcash-sprout/src/./rust/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 gtest_simple_lib/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/f/github.com/zcash-sprout/src/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/amount.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/amount.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/base58.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/base58.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/bech32.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/bech32.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/chainparams.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/chainparams.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/chainparamsbase.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/chainparamsbase.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/clientversion.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/clientversion.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/consensus/params.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/consensus/params.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/consensus/upgrades.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/consensus/upgrades.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/hmac_sha256.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/hmac_sha256.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/hmac_sha512.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/hmac_sha512.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/ripemd160.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/ripemd160.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/sha256.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/sha256.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/sha512.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/crypto/sha512.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/hash.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/hash.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/key.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/key.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/key_io.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/key_io.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/primitives/transaction.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/primitives/transaction.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/proof_verifier.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/proof_verifier.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/pubkey.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/pubkey.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/random.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/random.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/script/script.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/script/script.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/script/standard.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/script/standard.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/support/cleanse.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/support/cleanse.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/support/pagelocker.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/support/pagelocker.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/sync.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/sync.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/uint256.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/uint256.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/util.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/util.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/utilstrencodings.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/utilstrencodings.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/utiltime.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/utiltime.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/Address.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/Address.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/IncrementalMerkleTree.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/IncrementalMerkleTree.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/JoinSplit.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/JoinSplit.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/Note.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/Note.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/NoteEncryption.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/NoteEncryption.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/address/sapling.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/address/sapling.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/address/sprout.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/address/sprout.hpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/address/zip32.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/address/zip32.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/prf.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/prf.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/util.cpp">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/zcash/util.h">
+			<Option target="gtest_simple_lib"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/../../../../../home/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\home\chenxu\vcpkg\scripts\buildsystems\"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/../../../../../home/chenxu/vcpkg/installed/x64-linux/share/unofficial-sodium/unofficial-sodiumConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\unofficial-sodium\"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/../../../../../home/chenxu/vcpkg/installed/x64-linux/share/unofficial-sodium/unofficial-sodiumConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\unofficial-sodium\"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/../../../../../home/chenxu/vcpkg/installed/x64-linux/share/unofficial-sodium/unofficial-sodiumTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\unofficial-sodium\"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/../../../../../home/chenxu/vcpkg/installed/x64-linux/share/unofficial-sodium/unofficial-sodiumTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\unofficial-sodium\"/>
+		</Unit>
+		<Unit filename="/mnt/f/github.com/zcash-sprout/src/../../../../../home/chenxu/vcpkg/installed/x64-linux/share/unofficial-sodium/unofficial-sodiumTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\home\chenxu\vcpkg\installed\x64-linux\share\unofficial-sodium\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
