@@ -40,6 +40,16 @@ vcpkg install gtest
 vcpkg install boost
 ```
 
+安装其他zcash相关依赖
+
+```bash
+git clone https://github.com/zcash/zcash.git
+cd zcash
+sudo bash zcutil/fetch-params.sh    #会在${HOME}下生成.zcash-params目录，包含700MB左右的三个配置文件sapling-output.params  sapling-spend.params  sprout-groth16.params
+```
+
+
+
 tjfoc-sprout源代码编译安装
 
 修改vcpkg引用地址
