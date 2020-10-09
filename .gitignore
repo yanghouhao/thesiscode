@@ -1,1 +1,5 @@
 .idea/misc.xml
+/build/
+/src/cmake-build-debug/
+/test/cmake-build-debug/
+/cmake-build-debug/
