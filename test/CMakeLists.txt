@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 enable_testing()
-set(VCPKG_ROOT "/HOME/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "")
-set(CMAKE_TOOLCHAIN_FILE ${VCPKG_ROOT})
+
 find_package(GTest CONFIG REQUIRED)#查找GTest
 find_package(Threads)#查找Threads
-link_directories(/mnt/f/github.com/zcash-sprout/src/cmake-build-debug/)
-link_directories(/mnt/f/github.com/zcash-sprout/src/3rd/lib)
+set(ZCASH_SPROUT_SOURCE ../src)
+link_directories(${ZCASH_SPROUT_SOURCE}/3rd/lib)
 #一些调试信息
 message(gtest_include_dir=${GTEST_INCLUDE_DIR})
 message(gtest_library=${GTEST_LIBRARY})
 message(threads=${CMAKE_THREAD_LIBS_INIT})
+message(rust=${ZCASH_SPROUT_SOURCE}/3rd/lib)
 #包含GTest的库文件
 include_directories(${GTEST_INCLUDE_DIR})
 #包含src的项目文件

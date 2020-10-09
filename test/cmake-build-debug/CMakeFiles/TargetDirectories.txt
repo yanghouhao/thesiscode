@@ -1,4 +1,0 @@
-/mnt/f/github.com/tjfoc-sprout/test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/f/github.com/tjfoc-sprout/test/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/f/github.com/tjfoc-sprout/test/cmake-build-debug/CMakeFiles/gtest_simple_test.dir
-/mnt/f/github.com/tjfoc-sprout/test/cmake-build-debug/CMakeFiles/test.dir
