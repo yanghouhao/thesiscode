@@ -31,7 +31,9 @@ set(APP_ZCASH_SPROUT_SRC  ${APP_SRC} ${APP_SRC2} ${APP_SRC3} ${APP_SRC4} ${APP_S
 find_package(OpenSSL REQUIRED)
 find_package(unofficial-secp256k1 CONFIG REQUIRED)
 message(APP_ZCASH_SPROUT_SRC=${APP_ZCASH_SPROUT_SRC})
-add_executable(gtest_simple_test main.cpp test_joinsplit.cpp utils.cpp   )
+add_executable(gtest_simple_test main.cpp test_joinsplit.cpp test_merkletree.cpp test_pedersen_hash.cpp test_random.cpp test_transaction.cpp
+       test_txid.cpp utils.cpp json_test_vectors.cpp   )
+
 set(gtest_simple_lib   /mnt/f/github.com/zcash-sprout/src/cmake-build-debug/gtest_simple_lib.a)
 target_link_libraries(gtest_simple_test PUBLIC
         gtest_simple_lib ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main
