@@ -272,7 +272,8 @@ public:
         // (tx.fOverwintered << 31) | tx.nVersion
         bool fOverwintered = s.GetVersion() >> 31;
         int32_t txVersion = s.GetVersion() & 0x7FFFFFFF;
-        bool useGroth = fOverwintered && txVersion >= SAPLING_TX_VERSION;
+        bool useGroth=true;
+        //= fOverwintered && txVersion >= SAPLING_TX_VERSION;
 
         READWRITE(vpub_old);
         READWRITE(vpub_new);

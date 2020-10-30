@@ -13,12 +13,13 @@ struct ECCryptoClosure
 ECCryptoClosure instance_of_eccryptoclosure;
 
 int main(int argc, char **argv) {
+    namespace fs = boost::filesystem;
   assert(init_and_check_sodium() != -1);
   ECC_Start();
-
-  boost::filesystem::path sapling_spend = ZC_GetParamsDir() / "sapling-spend.params";
-  boost::filesystem::path sapling_output = ZC_GetParamsDir() / "sapling-output.params";
-  boost::filesystem::path sprout_groth16 = ZC_GetParamsDir() / "sprout-groth16.params";
+//
+  boost::filesystem::path sapling_spend =  ZC_GetParamsDir() / "sapling-spend.params";
+  boost::filesystem::path sapling_output =ZC_GetParamsDir() / "sapling-output.params";
+  boost::filesystem::path sprout_groth16 =ZC_GetParamsDir() / "sprout-groth16.params";
 
     static_assert(
         sizeof(boost::filesystem::path::value_type) == sizeof(codeunit),
