@@ -15,12 +15,15 @@ private:
     std::vector<myTransaction *> transactionsVector;
 
 public:
+    //con/destructor
     myBlock(time_t,
           std::string,
           int,
           std::vector<myTransaction *>);
 
     ~myBlock();
+
+    //method
     time_t getTimeStamp() const;
     size_t getBlockHash() const;
     std::string getPrevBlockHash() const;

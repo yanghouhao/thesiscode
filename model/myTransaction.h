@@ -12,11 +12,29 @@ private:
     /* data */
     size_t transactionHash;
 public:
-    myTransaction(JSDescription *, string);
-    ~myTransaction();
+    //property
     JSDescription *jsDescription;
     string cipherTextWithABE;
+
+    //con/destruct
+    myTransaction(JSDescription *, string);
+    ~myTransaction();
+    
+    //method
     size_t getTransactionHash() const;
+
+    //class method
+    static JSDescription makeSproutProof(
+        const std::array<JSInput, 2>&,
+        const std::array<JSOutput, 2>&,
+        const Ed25519VerificationKey&,
+        uint64_t,
+        uint64_t,
+        const uint256&);
+
+    static bool verifySproutProof(
+        const JSDescription&,
+        const Ed25519VerificationKey&);
 };
 
 myTransaction::myTransaction(JSDescription *jsDescription, string cipherTextWithABE)
@@ -45,4 +63,24 @@ myTransaction::~myTransaction()
 size_t myTransaction::getTransactionHash() const
 {
     return this->transactionHash;
+}
+
+JSDescription myTransaction::makeSproutProof(
+        const std::array<JSInput, 2>& inputs,
+        const std::array<JSOutput, 2>& outputs,
+        const Ed25519VerificationKey& joinSplitPubKey,
+        uint64_t vpub_old,
+        uint64_t vpub_new,
+        const uint256& rt
+){
+    return JSDescription(joinSplitPubKey, rt, inputs, outputs, vpub_old, vpub_new);
+}
+
+bool myTransaction::verifySproutProof(
+        const JSDescription& jsdesc,
+        const Ed25519VerificationKey& joinSplitPubKey
+)
+{
+    auto verifier = ProofVerifier::Strict();
+    return verifier.VerifySprout(jsdesc, joinSplitPubKey);
 }
