@@ -15,17 +15,17 @@ private:
     std::vector<myTransaction *> transactionsVector;
 
 public:
-    myBlock(time_t timeStamp,
-          std::string prevBlockHash,
-          int height,
-          std::vector<myTransaction *> transactionsVector);
+    myBlock(time_t,
+          std::string,
+          int,
+          std::vector<myTransaction *>);
 
     ~myBlock();
     time_t getTimeStamp() const;
     size_t getBlockHash() const;
     std::string getPrevBlockHash() const;
     int getHeight() const;
-    std::vector<myTransaction> getTransactionsVector() const;
+    std::vector<myTransaction *> getTransactionsVector() const;
     void caculateHash();
 };
 
@@ -65,7 +65,7 @@ int myBlock::getHeight() const
     return this->height;
 }
 
-std::vector<std::string> myBlock::getTransactionsVector() const
+std::vector<myTransaction *> myBlock::getTransactionsVector() const
 {
     return this->transactionsVector;
 }

@@ -12,16 +12,14 @@ private:
     /* data */
     size_t transactionHash;
 public:
-    transaction(JSDescription jsDescription,
-    string cipherTextWithABE);
-    ~transaction();
+    myTransaction(JSDescription *, string);
+    ~myTransaction();
     JSDescription *jsDescription;
     string cipherTextWithABE;
     size_t getTransactionHash() const;
 };
 
-myTransaction::myTransaction(JSDescription *jsDescription,
-    string cipherTextWithABE)
+myTransaction::myTransaction(JSDescription *jsDescription, string cipherTextWithABE)
 {
     this->jsDescription = new JSDescription;
     this->jsDescription->vpub_old = jsDescription->vpub_old ;
@@ -36,7 +34,7 @@ myTransaction::myTransaction(JSDescription *jsDescription,
     this->jsDescription->proof = jsDescription->proof;
 
     this->cipherTextWithABE = cipherTextWithABE;
-    this->transactionHash = 0;
+    this->transactionHash = std::hash<string>()(this->cipherTextWithABE);
 }
 
 myTransaction::~myTransaction()
@@ -44,11 +42,7 @@ myTransaction::~myTransaction()
     delete this->jsDescription;
 }
 
-myTransaction::getTransactionHash()
+size_t myTransaction::getTransactionHash() const
 {
-    if (this->transactionHash == 0)
-    {
-        this->transactionHash = std::hash<size_t>()(this->transactionHash);
-    }
     return this->transactionHash;
 }

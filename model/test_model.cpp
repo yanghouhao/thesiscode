@@ -23,8 +23,8 @@
 
 #include <rust/ed25519/types.h>
 
-#include "myBlock.h"
-#include "myTransaction.h"
+//#include "myBlock.h"
+//#include "myTransaction.h"
 
 using namespace libzcash;
 using namespace oabe;
@@ -33,6 +33,7 @@ using namespace std;
 
 int main ()
 {
+cout << "nothing happened" << endl;
     return 0;
 }
 
