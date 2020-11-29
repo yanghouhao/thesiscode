@@ -8,10 +8,14 @@ include_directories(${TJFOC_SPROUT_SOURCE}
                     )
 # libgmpxx.a 与 libgmp.a 的顺序不能互换
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd/lib)
-find_package(Boost REQUIRED COMPONENTS system filesystem )
+find_package(Boost 1.74.0 COMPONENTS system filesystem thread REQUIRED)
 find_package(unofficial-sodium CONFIG REQUIRED)
+find_package(OpenSSL REQUIRED)
+
 #add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
-include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${BOOST_INCLUDE_DIRS})
+LINK_DIRECTORIES(${BOOST_LIBRARY_DIRS})
+link_libraries(${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES} ${Boost_LIBRARIES})
 add_library(gtest_lib STATIC
         key.cpp    script/standard.cpp pubkey.cpp crypto/hmac_sha512.cpp consensus/params.cpp consensus/upgrades.cpp   key_io.cpp base58.cpp bech32.cpp
         zcash/Address.cpp  zcash/address/zip32.cpp

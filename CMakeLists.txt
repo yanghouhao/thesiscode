@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
-set(VCPKG_ROOT "/home/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "")
+set(VCPKG_ROOT "/home/yanghouhao/essay/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "")
 set(CMAKE_TOOLCHAIN_FILE ${VCPKG_ROOT})
 project(tjfoc-sprout)
 add_subdirectory(src)
+#add_subdirectory(verifier)
 add_subdirectory(test)

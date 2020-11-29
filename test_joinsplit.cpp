@@ -1,9 +1,5 @@
 #include <gtest/gtest.h>
-#include <iostream>
-#include <string>
-#include <cassert>
-#include <openabe/openabe.h>
-#include <openabe/zsymcrypto.h>
+//#include <openabe/openabe.h>
 #include "utilstrencodings.h"
 
 #include <boost/foreach.hpp>
@@ -26,8 +22,7 @@
 //#include <rust/ed25519.h>
 
 using namespace libzcash;
-using namespace oabe;
-using namespace oabe::crypto;
+//using namespace oabe;
 using namespace std;
 // Make the Groth proof for a Sprout statement,
 // and store the result in a JSDescription object.
@@ -216,7 +211,7 @@ void test_full_api()
 
         // Verify Groth Proof:
         ASSERT_TRUE(verifySproutProof(jsdesc2, joinSplitPubKey2));
-
+/*
 InitializeOpenABE();
 
   cout << "Testing CP-ABE context" << endl;
@@ -233,14 +228,12 @@ InitializeOpenABE();
 
   bool result = cpabe.decrypt("key0", ct, pt2);
 
- cout << pt2 << endl;
-
-  //assert(result && pt1 == pt2);
+  assert(result && pt1 == pt2);
 
   cout << "Recovered message: " << pt2 << endl;
 
   ShutdownOpenABE();
-
+*/
     }
 }
 
