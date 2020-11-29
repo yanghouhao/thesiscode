@@ -23,7 +23,7 @@ sudo apt-get install build-essential tar curl zip unzip
 git clone https://github.com/Microsoft/vcpkg.git
 cd vcpkg
 ./bootstrap-vcpkg.sh
-sudo ln -s /home/chenxu/vcpkg/vcpkg /usr/bin      #建立软链接，注意路径修改， /home/chenxu/vcpkg/vcpkg 修改为vcpkg执行文件的绝对路径
+sudo ln -s /home/yanghouhao/essay/vcpkg/vcpkg /usr/bin      #建立软链接，注意路径修改， /home/chenxu/vcpkg/vcpkg 修改为vcpkg执行文件的绝对路径
 ```
 
 使用vcpkg安装依赖包
@@ -58,7 +58,7 @@ tjfoc-sprout源代码编译安装
 cd tjfoc-sprout
 vim CMakeList.txt
 第二行VCPKG_ROOT变量中路径修改为vcpkg实际目录后保存
-#set(VCPKG_ROOT "/home/chenxu/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "")
+#set(VCPKG_ROOT "/home/yanghouhao/essay/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "")
 ```
 
 
