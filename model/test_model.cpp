@@ -50,7 +50,6 @@
 
 #include "consensus/validation.h"
 #include "transaction_builder.h"
-#include "utiltest.h"
 #include "zcash/JoinSplit.hpp"
 
 #include <rust/ed25519.h>
@@ -61,7 +60,7 @@
 
 #include <univalue/univalue.h>
 
-#include "myBlock.h"
+#include "myBlockChain.h"
 //#include "myTransaction.h"
 
 using namespace libzcash;
@@ -82,5 +81,6 @@ void testBlock()
 int main ()
 {
     testTransaction();
+    myBlock *block;
     return 0;
 }

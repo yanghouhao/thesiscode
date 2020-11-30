@@ -1,7 +1,7 @@
 #include "myBlock.h"
 
 myBlock::myBlock(time_t timeStamp,
-             std::string prevBlockHash,
+             size_t prevBlockHash,
              int height,
              std::vector<myTransaction *> transactionsVector)
 {

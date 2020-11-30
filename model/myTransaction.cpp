@@ -1,5 +1,11 @@
 #include "myTransaction.h"
 
+#include <openabe/openabe.h>
+#include <openabe/zsymcrypto.h>
+
+using namespace oabe;
+using namespace oabe::crypto;
+
 myTransaction::myTransaction(JSDescription *jsDescription, string cipherTextWithABE)
 {
     this->jsDescription = new JSDescription;

@@ -21,6 +21,9 @@ include_directories(../
 find_package(OpenSSL REQUIRED)
 find_package(unofficial-secp256k1 CONFIG REQUIRED)
 
-add_executable(test_model test_model.cpp)
+#add_executable(test_model test_model.cpp)
+
+file(GLOB Sources "*.cpp")
+add_library(model STATIC ${Sources})
 
 

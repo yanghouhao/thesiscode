@@ -17,7 +17,7 @@ private:
 public:
     //con/destructor
     myBlock(time_t,
-          std::string,
+          size_t,
           int,
           std::vector<myTransaction *>);
 

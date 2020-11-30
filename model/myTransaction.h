@@ -1,9 +1,7 @@
 #include "primitives/transaction.h"
-
+#include "proof_verifier.h"
 
 using namespace libzcash;
-using namespace oabe;
-using namespace oabe::crypto;
 using namespace std;
 
 class myTransaction
