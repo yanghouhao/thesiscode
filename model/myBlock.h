@@ -23,6 +23,8 @@ public:
 
     ~myBlock();
 
+    //property
+
     //method
     time_t getTimeStamp() const;
     size_t getBlockHash() const;
