@@ -2,9 +2,9 @@
 #include <string>
 #include <vector>
 
-#include "myTransaction.h"
+#include "MyTransaction.h"
 
-class myBlock
+class MyBlock
 {
 private:
     /* data */
@@ -12,16 +12,16 @@ private:
     size_t hash;
     std::string prevBlockHash;
     int height;
-    std::vector<myTransaction *> transactionsVector;
+    std::vector<MyTransaction *> transactionsVector;
 
 public:
     //con/destructor
-    myBlock(time_t,
+    MyBlock(time_t,
           size_t,
           int,
-          std::vector<myTransaction *>);
+          std::vector<MyTransaction *>);
 
-    ~myBlock();
+    ~MyBlock();
 
     //property
 
@@ -30,6 +30,6 @@ public:
     size_t getBlockHash() const;
     std::string getPrevBlockHash() const;
     int getHeight() const;
-    std::vector<myTransaction *> getTransactionsVector() const;
+    std::vector<MyTransaction *> getTransactionsVector() const;
     void caculateHash();
 };

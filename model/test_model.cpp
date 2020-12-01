@@ -60,8 +60,7 @@
 
 #include <univalue/univalue.h>
 
-#include "myBlockChain.h"
-//#include "myTransaction.h"
+#include "MyBlockChain.h"
 
 using namespace libzcash;
 using namespace oabe;
@@ -81,6 +80,6 @@ void testBlock()
 int main ()
 {
     testTransaction();
-    myBlock *block;
+    MyBlock *block;
     return 0;
 }

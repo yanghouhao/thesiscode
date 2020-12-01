@@ -1,9 +1,9 @@
-#include "myBlock.h"
+#include "MyBlock.h"
 
-myBlock::myBlock(time_t timeStamp,
+MyBlock::MyBlock(time_t timeStamp,
              size_t prevBlockHash,
              int height,
-             std::vector<myTransaction *> transactionsVector)
+             std::vector<MyTransaction *> transactionsVector)
 {
     this->timeStamp = timeStamp;
     this->prevBlockHash = prevBlockHash;
@@ -12,36 +12,36 @@ myBlock::myBlock(time_t timeStamp,
     this->caculateHash();
 }
 
-myBlock::~myBlock()
+MyBlock::~MyBlock()
 {
 }
 
-time_t myBlock::getTimeStamp() const
+time_t MyBlock::getTimeStamp() const
 {
     return this->timeStamp;
 }
 
-size_t myBlock::getBlockHash() const
+size_t MyBlock::getBlockHash() const
 {
     return this->hash;
 }
 
-std::string myBlock::getPrevBlockHash() const
+std::string MyBlock::getPrevBlockHash() const
 {
     return this->prevBlockHash;
 }
 
-int myBlock::getHeight() const
+int MyBlock::getHeight() const
 {
     return this->height;
 }
 
-std::vector<myTransaction *> myBlock::getTransactionsVector() const
+std::vector<MyTransaction *> MyBlock::getTransactionsVector() const
 {
     return this->transactionsVector;
 }
 
-void myBlock::caculateHash()
+void MyBlock::caculateHash()
 {
     size_t timeStamp = std::hash<time_t>()(this->timeStamp);
     size_t prevBlockHash = std::hash<std::string>()(this->prevBlockHash);

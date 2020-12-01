@@ -227,13 +227,13 @@ InitializeOpenABE();
 
   cpabe.generateParams();
 
-  cpabe.keygen("|attr1|attr2", "key0");
+  cpabe.keygen("attr1|attr2", "key0");
 
   cpabe.encrypt("attr1 and attr2", pt1, ct);
 
   bool result = cpabe.decrypt("key0", ct, pt2);
 
- cout << pt2 << endl;
+  cout << pt2 << endl;
 
   //assert(result && pt1 == pt2);
 

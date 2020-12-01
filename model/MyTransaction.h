@@ -4,7 +4,7 @@
 using namespace libzcash;
 using namespace std;
 
-class myTransaction
+class MyTransaction
 {
 private:
     /* data */
@@ -15,8 +15,9 @@ public:
     string cipherTextWithABE;
 
     //con/destruct
-    myTransaction(JSDescription *, string);
-    ~myTransaction();
+    MyTransaction(JSDescription *, string);
+    MyTransaction();
+    ~MyTransaction();
     
     //method
     size_t getTransactionHash() const;

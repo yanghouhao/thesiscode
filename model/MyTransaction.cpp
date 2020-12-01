@@ -1,4 +1,4 @@
-#include "myTransaction.h"
+#include "MyTransaction.h"
 
 #include <openabe/openabe.h>
 #include <openabe/zsymcrypto.h>
@@ -6,7 +6,7 @@
 using namespace oabe;
 using namespace oabe::crypto;
 
-myTransaction::myTransaction(JSDescription *jsDescription, string cipherTextWithABE)
+MyTransaction::MyTransaction(JSDescription *jsDescription, string cipherTextWithABE)
 {
     this->jsDescription = new JSDescription;
     this->jsDescription->vpub_old = jsDescription->vpub_old ;
@@ -24,17 +24,17 @@ myTransaction::myTransaction(JSDescription *jsDescription, string cipherTextWith
     this->transactionHash = std::hash<string>()(this->cipherTextWithABE);
 }
 
-myTransaction::~myTransaction()
+MyTransaction::~MyTransaction()
 {
     delete this->jsDescription;
 }
 
-size_t myTransaction::getTransactionHash() const
+size_t MyTransaction::getTransactionHash() const
 {
     return this->transactionHash;
 }
 
-JSDescription myTransaction::makeSproutProof(
+JSDescription MyTransaction::makeSproutProof(
         const std::array<JSInput, 2>& inputs,
         const std::array<JSOutput, 2>& outputs,
         const Ed25519VerificationKey& joinSplitPubKey,
@@ -45,7 +45,7 @@ JSDescription myTransaction::makeSproutProof(
     return JSDescription(joinSplitPubKey, rt, inputs, outputs, vpub_old, vpub_new);
 }
 
-bool myTransaction::verifySproutProof(
+bool MyTransaction::verifySproutProof(
         const JSDescription& jsdesc,
         const Ed25519VerificationKey& joinSplitPubKey
 )

@@ -1,6 +1,3 @@
-#include <model/myBlockChain.h>
-#include <openabe/openabe.h>
-
 #include <Poco/Net/ServerSocket.h>
 #include <Poco/Net/HTTPServer.h>
 #include <Poco/Net/HTTPRequestHandler.h>
@@ -13,6 +10,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
+#include "TransactionHandler.h"
  
 using namespace std;
 using namespace Poco::Net;
@@ -47,7 +46,6 @@ protected:
 	int main(const vector<string> &)
 	{
 		HTTPServer s(new MyRequestHandlerFactory, ServerSocket(8080), new HTTPServerParams);
- 
 		s.start();
 		cout << endl << "Server started" << endl;
  
@@ -56,7 +54,6 @@ protected:
 		cout << endl << "Shutting down..." << endl;
  
 		s.stop();
- 
 		return Application::EXIT_OK;
 	}
 };

@@ -1,11 +1,11 @@
-#include "myBlockChain.h"
+#include "MyBlockChain.h"
 
-myBlockChain::myBlockChain(/* args */)
+MyBlockChain::MyBlockChain(/* args */)
 {
     this->lastBlockHash = 0;
 }
 
-myBlockChain::~myBlockChain()
+MyBlockChain::~MyBlockChain()
 {
     for (size_t i = 0; i < this->blocksArray.size(); i++)
     {
@@ -15,7 +15,7 @@ myBlockChain::~myBlockChain()
     this->blocksArray.clear();
 }
 
-myBlock * myBlockChain::creatGeniusBlock(int amount)
+MyBlock * MyBlockChain::creatGeniusBlock(int amount)
 {
     if (!this->height)
     {
@@ -23,17 +23,17 @@ myBlock * myBlockChain::creatGeniusBlock(int amount)
     }
     time_t timeStamp = time(nullptr);
     size_t prevHash = this->lastBlockHash;
-    std::vector<myTransaction *> noneTransaction;
-    myBlock *geniusBlock = new myBlock(timeStamp, prevHash, 0, noneTransaction);
+    std::vector<MyTransaction *> noneTransaction;
+    MyBlock *geniusBlock = new MyBlock(timeStamp, prevHash, 0, noneTransaction);
     this->appendBlock(geniusBlock);
 }
 
-myBlock * myBlockChain::creatNewBlock()
+MyBlock * MyBlockChain::creatNewBlock()
 {
     
 }
 
-void myBlockChain::appendBlock(myBlock *block)
+void MyBlockChain::appendBlock(MyBlock *block)
 {
     this->blocksArray.push_back(block);
     this->lastBlockHash = block->getBlockHash();
