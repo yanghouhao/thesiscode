@@ -14,6 +14,11 @@ MyBlock::MyBlock(time_t timeStamp,
 
 MyBlock::~MyBlock()
 {
+    for (auto &&transaction : this->transactionsVector)
+    {
+        delete transaction;
+    }
+    
 }
 
 time_t MyBlock::getTimeStamp() const

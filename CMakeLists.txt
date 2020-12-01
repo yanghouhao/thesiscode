@@ -3,6 +3,6 @@ set(VCPKG_ROOT "/home/yanghouhao/essay/vcpkg/scripts/buildsystems/vcpkg.cmake" C
 set(CMAKE_TOOLCHAIN_FILE ${VCPKG_ROOT})
 project(tjfoc-sprout)
 add_subdirectory(src)
-add_subdirectory(test)
+#add_subdirectory(test)
 add_subdirectory(model)
-add_subdirectory(server)
+#add_subdirectory(server)

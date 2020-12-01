@@ -1,8 +1,16 @@
+#ifndef _MYTRANSACTION_H_
+#define _MYTRANSACTION_H_
+
 #include "primitives/transaction.h"
 #include "proof_verifier.h"
 
 using namespace libzcash;
 using namespace std;
+
+enum TransactionType {
+    TransactionTypeTransfer,
+    TransactionTypeTreate,
+};
 
 class MyTransaction
 {
@@ -12,10 +20,11 @@ private:
 public:
     //property
     JSDescription *jsDescription;
-    string cipherTextWithABE;
+    std::vector<string> cipherTextArrayWithABE;
+    TransactionType type;
 
     //con/destruct
-    MyTransaction(JSDescription *, string);
+    MyTransaction(JSDescription *, std::vector<string>, TransactionType);
     MyTransaction();
     ~MyTransaction();
     
@@ -23,7 +32,7 @@ public:
     size_t getTransactionHash() const;
 
     //class method
-    static JSDescription makeSproutProof(
+    static JSDescription * makeSproutProof(
         const std::array<JSInput, 2>&,
         const std::array<JSOutput, 2>&,
         const Ed25519VerificationKey&,
@@ -35,3 +44,5 @@ public:
         const JSDescription&,
         const Ed25519VerificationKey&);
 };
+
+#endif

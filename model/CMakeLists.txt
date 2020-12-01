@@ -22,10 +22,9 @@ find_package(OpenSSL REQUIRED)
 find_package(unofficial-secp256k1 CONFIG REQUIRED)
 
 aux_source_directory(. SRC_LIST)
-add_library(myModel ${SRC_LIST})
 
-#add_executable(test_model test_model.cpp)
-target_link_libraries(myModel PUBLIC
+add_executable(test_model ${SRC_LIST})
+target_link_libraries(test_model PUBLIC
         gtest_lib  ${CMAKE_THREAD_LIBS_INIT} PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main
         rustzcash m dl -lboost_thread -lboost_system -lboost_filesystem -lboost_program_options -lboost_chrono -lboost_prg_exec_monitor -lboost_test_exec_monitor -lboost_unit_test_framework   sodium  PRIVATE OpenSSL::SSL OpenSSL::Crypto -lrelic -lrelic_ec -lopenabe)
-target_link_libraries(myModel PRIVATE unofficial::secp256k1)
+target_link_libraries(test_model PRIVATE unofficial::secp256k1)

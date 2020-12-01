@@ -1,3 +1,6 @@
+#ifndef _MYBLOCK_H_
+#define _MYBLOCK_H_
+
 #include <ctime>
 #include <string>
 #include <vector>
@@ -33,3 +36,5 @@ public:
     std::vector<MyTransaction *> getTransactionsVector() const;
     void caculateHash();
 };
+
+#endif
