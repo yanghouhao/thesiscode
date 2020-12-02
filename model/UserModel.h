@@ -9,9 +9,9 @@
 using namespace libzcash;
 
 enum ClientType {
-    client,
-    auditor,
-    creator,
+    ClientTypeClient,
+    ClientTypeAuditor,
+    ClientTypeCreator,
 };
 
 class UserModel

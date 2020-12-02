@@ -32,6 +32,8 @@ public:
 	//override
 	void handle();
 	void inputInfo();
+	void printHelp();
+	bool isValidInput(std::string);
 };
 
 #endif

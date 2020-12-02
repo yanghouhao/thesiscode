@@ -37,10 +37,15 @@ public:
     int queryUserAccount(std::string);
     bool isAccountMoneyValid(std::string, int);
     std::vector<libzcash::SproutNote> queryUserValidNotesArray(std::string);
+	std::vector<libzcash::SproutNote> queryUserAllNotesArray(std::string);
+
+	bool isValidAuditor(std::string);
 
 	//override
 	void handle();
 	void inputInfo();
+	void printHelp();
+	bool isValidInput(std::string);
 };
 
 

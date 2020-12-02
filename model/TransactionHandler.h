@@ -25,7 +25,6 @@ private:
 		}
 	};
 	static CGarbo Garbo;
-	void nullifyNote(SproutNote, SproutSpendingKey);
 
     void storeTransaction(MyTransaction *, int);
     MyTransaction * createTransaction();
@@ -37,6 +36,8 @@ public:
 	//override
 	void handle();
 	void inputInfo();
+	void printHelp();
+	bool isValidInput(std::string);
 };
 
 #endif

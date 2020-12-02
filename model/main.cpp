@@ -2,6 +2,7 @@
 
 #include "librustzcash.h"
 
+#include "AuditHandler.h"
 #include "TransactionHandler.h"
 #include "RegisterHandler.h"
 #include "PrintHandler.h"
@@ -59,6 +60,28 @@ BaseHandler *handlerFactory(std::string command)
     {
         return PrintHandler::shareInstance();
     }
+    else if (command == "audit")
+    {
+        return AuditHandler::shareInstance();
+    }
+    
+}
+
+void printHelp()
+{
+    cout << "请输入命令" << endl;
+    cout << "regist 注册用户" << endl;
+    cout << "transaction 交易" << endl;
+    cout << "print 打印信息" << endl;
+    cout << "audit 审计功能" << endl;
+    cout << "HELP 帮助" << endl;
+    cout << "X 退出" << endl;
+    cout << "EXIT 退出" << endl;
+}
+
+bool isInputValid(string command)
+{
+    return command == "HELP" || command == "regist" || command == "transaction" || command == "print" || command == "audit" || command == "X" || command == "EXIT";
 }
 
 int main()
@@ -67,14 +90,27 @@ int main()
 
     string command;
     BaseHandler *handler;
-    
-    while (cout << "请输入命令，输入 HELP 获取帮助" << endl , cin >> command)
+    cout << "请输入命令，输入 HELP 获取帮助" << endl;
+    printHelp();
+    while (cin >> command)
     {
-        if (command == "X" or command == "EXIT")
+        if (!isInputValid(command))
+        {
+            cout << "输入无效，请重新输入" << endl;
+            printHelp();
+        }
+
+        if (command == "X" || command == "EXIT")
         {
             break;
         }
 
+        if (command == "HELP")
+        {
+            printHelp();
+            continue;
+        }
+        
         handler = handlerFactory(command);
         handler->inputInfo();
         handler->handle();

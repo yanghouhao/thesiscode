@@ -2,7 +2,7 @@
 
 #include "string"
 
-UserModel::UserModel(std::string userName, ClientType userType = client)
+UserModel::UserModel(std::string userName, ClientType userType = ClientTypeClient)
 {
     this->userName = userName;
     this->userType = userType;

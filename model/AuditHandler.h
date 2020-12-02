@@ -1,7 +1,7 @@
 #ifndef _AUDITHANDLE_H_
 #define _AUDITHANDLE_H_
 
-#include <BaseHandler.h>
+#include "BaseHandler.h"
 
 class AuditHandler : public BaseHandler
 {
@@ -26,11 +26,17 @@ private:
 		}
 	};
 	static CGarbo Garbo;
+
+	void showAuditee();
+	void showAllNote(std::string);
+
 public:
-    static AuditHandler * shareInstance();
+    static AuditHandler * shareInstance();	
 	//override
 	void handle();
 	void inputInfo();
+	void printHelp();
+	bool isValidInput(std::string);
 };
 
 #endif

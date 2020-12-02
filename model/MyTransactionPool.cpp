@@ -16,6 +16,12 @@ void MyTransactionPool::addTransaction(MyTransaction *transaction, int amount)
 {
     this->transactionsArray.push_back(transaction);
     this->vpub += amount;
+
+    for (auto &&nullifier : transaction->jsDescription->nullifiers)
+    {
+        this->nullifiersArray.push_back(nullifier);
+    }
+    
     if (this->transactionsArray.size() > 0)
     {
         MyBlockChain *blockChain = Storage::shareInstance()->sharedBlockChain();
@@ -25,9 +31,4 @@ void MyTransactionPool::addTransaction(MyTransaction *transaction, int amount)
         this->nullifiersArray.clear();
         amount = 0;
     }
-}
-
-void MyTransactionPool::addNullifier(uint256 nullifier)
-{
-    this->nullifiersArray.push_back(nullifier);
 }

@@ -38,7 +38,6 @@ private:
 public:
     static MyTransactionPool * shareInstance();
     void addTransaction(MyTransaction *, int);
-    void addNullifier(uint256);
 };
 
 

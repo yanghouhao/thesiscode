@@ -1,5 +1,11 @@
 #include "Utils.h"
 
+#include <serialize.h>
+#include <streams.h>
+#include <hash.h>
+#include <stdint.h>
+#include <memory>
+
 Utils * Utils::instance = nullptr;
 OpenABECryptoContext * Utils::cpabe = nullptr;
 
@@ -20,22 +26,39 @@ Utils * Utils::shareInstance()
 
 string Utils::encrypt(string policy, string plainText)
 {
-    return "";
+    string res;
+    this->cpabe->encrypt(policy, plainText, res);
+    return res;
 }
 
 string Utils::decrypt(string attribute, string cipherText)
 {
-    return "";
+    string res;
+    bool result = this->cpabe->decrypt(attribute, cipherText, res);
+    if (!result)
+    {
+        res = "decrypt fail";
+    }
+    
+    return res;
 }
 
-SproutNotePlaintext Utils::deserializeNote(string)
+SproutNotePlaintext Utils::deserializeNote(string note_string)
 {
-    return SproutNotePlaintext();
+    CDataStream ss(SER_DISK, 0);
+    SproutNotePlaintext res;
+    ss << note_string;
+    ss >> res;
+    return res;
 }
 
-string Utils::serializeNote(SproutNotePlaintext)
+string Utils::serializeNote(SproutNotePlaintext note_pt)
 {
-    return "";
+    CDataStream ss(SER_DISK, 0);
+    ss << note_pt;
+    string res;
+    ss >> res;
+    return res;
 }
 
 string Utils::encryptKey(string publisherName, string recipientName)

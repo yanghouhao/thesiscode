@@ -34,11 +34,20 @@ private:
 
 	void printBlockchain();
 	void printBlockChainInfo();
+
+	void printNote(SproutNote);
+
 public:
     static PrintHandler * shareInstance();
 	//override
 	void handle();
 	void inputInfo();
+	
+	//for audit
+	void printAuditee(std::string);
+	void printAllTransaction(std::string);
+	void printHelp();
+	bool isValidInput(std::string);
 };
 
 #endif

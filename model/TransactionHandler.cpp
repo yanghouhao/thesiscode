@@ -151,10 +151,8 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
             string cipherText = Utils::shareInstance()->encrypt(plainText, encryptKey);
             cipherTextArray.push_back(cipherText);
         }
-        
         MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTransfer);
         this->storeTransaction(transaction, amount);
-        this->nullifyNote(note, *publisherSpendingKey);
     }
     
     delete publisherSpendingKey;
@@ -170,13 +168,6 @@ void TransactionHandler::storeTransaction(MyTransaction *transaction, int amount
     transactionPool->addTransaction(transaction, transToPrivate);
 }
 
-void TransactionHandler::nullifyNote(SproutNote note, SproutSpendingKey sk)
-{
-    uint256 nullifier = note.nullifier(sk);
-    MyTransactionPool *transactionPool = MyTransactionPool::shareInstance();
-    transactionPool->addNullifier(nullifier);
-}
-
 void TransactionHandler::handle()
 {
     if (!this->model)
@@ -184,9 +175,133 @@ void TransactionHandler::handle()
         cout << "输入有误，请重新输入" << endl;
     }
     
+    string order = this->model->getOrders().front();
+    if (order == "X")
+    {
+        return;
+    } 
+    else if (order == "creat")
+    {
+        string userName;
+        int amount;
+        cout << "请输入用户名" << endl;
+        while (cin >> userName)
+        {
+            if (!Storage::shareInstance()->getSingleUserByName(userName))
+            {
+                cout << "没有这个用户，请重新输入" << endl;
+                continue;
+            }
+            break;
+        }
+
+        cout << "请输入转进金额" << endl;
+        cin >> amount;
+
+        if (Storage::shareInstance()->getVpub() < amount)
+        {
+            cout << "金额无效，超出透明池范围" << endl;
+            return;
+        }
+        
+        this->create(userName, amount);
+    }
+    else if (order == "transfer")
+    {
+        string userNameP;
+        string userNameR;
+        int amount;
+        cout << "请输入支付用户名" << endl;
+        while (cin >> userNameP)
+        {
+            if (userNameP == "X")
+            {
+                return;
+            }
+            
+            if (!Storage::shareInstance()->getSingleUserByName(userNameP))
+            {
+                cout << "没有这个用户，请重新输入" << endl;
+                continue;
+            }
+            break;
+        }
+
+        cout << "请输入接受用户名" << endl;
+        while (cin >> userNameR)
+        {
+            if (userNameR == "X")
+            {
+                return;
+            }
+
+            if (!Storage::shareInstance()->getSingleUserByName(userNameR))
+            {
+                cout << "没有这个用户，请重新输入" << endl;
+                continue;
+            }
+            break;
+        }
+
+        cout << "请输入交易金额" << endl;
+        cin >> amount;
+
+        if (!QueryHandler::shareInstance()->isAccountMoneyValid(userNameP, amount))
+        {
+            cout << "没有足够的金额" << endl;
+            return;
+        }
+        
+        std::vector<libzcash::SproutNote> allNote = QueryHandler::shareInstance()->queryUserValidNotesArray(userNameP);
+        this->transfer(userNameP, userNameR, amount, allNote);
+    }
+    
+    
 }
 
 void TransactionHandler::inputInfo()
 {
+    if (this->model)
+    {
+        delete this->model;
+    }
 
+    this->printHelp();
+
+    string order;
+
+    while (cin >> order)
+    {
+        if (!this->isValidInput(order))
+        {
+            cout << "输入有误，请重新输入" << endl;
+            this->printHelp();
+        }
+
+        if (order == "HELP")
+        {
+            this->printHelp();
+            continue;
+        }
+        
+        this->model = new HandlerModel();
+        this->model->addOrder(order);
+        return;
+    }
+    
+}
+
+void TransactionHandler::printHelp()
+{
+    cout << "请输入要执行的交易" << endl;
+    cout << "creat 代表从透明池向隐私池转账" << endl;
+    cout << "transfer 代表隐私池之间的转账" << endl;
+    //cout << "new 代表新增透明池" << endl;
+    cout << "HELP 显示帮助" << endl;
+    cout << "X 退出" << endl;
+}
+	
+bool TransactionHandler::isValidInput(std::string order)
+{
+    return order == "new" || order == "creat" || order == "HELP" || order == "transfer" || order == "X";
 }
