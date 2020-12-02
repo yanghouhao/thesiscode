@@ -34,9 +34,11 @@ private:
 public:
     static Utils * shareInstance();
     string encrypt(string, string);
+    //密钥在前，明/密文在后
     string decrypt(string, string);
     SproutNotePlaintext deserializeNote(string);
     string serializeNote(SproutNotePlaintext);
+    string encryptKey(string, string);
 };
 
 #endif

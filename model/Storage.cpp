@@ -13,6 +13,7 @@ Storage * Storage::shareInstance()
     if (!instance)
     {
         instance = new Storage();
+        instance->storedBlockChain = new MyBlockChain();
     }
     return instance;
 }

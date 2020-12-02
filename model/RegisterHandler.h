@@ -2,8 +2,9 @@
 #define _REGISTERHANDLER_H_
 
 #include "Storage.h"
+#include "BaseHandler.h"
 
-class RegisterHandler
+class RegisterHandler : public BaseHandler
 {
 private:
     RegisterHandler(){};
@@ -14,13 +15,23 @@ private:
 		~CGarbo()
 		{
 			if(RegisterHandler::instance)
+			{
+				if (RegisterHandler::instance->model)
+				{
+					delete RegisterHandler::instance->model;
+				}
 				delete RegisterHandler::instance;
+			}
+				
 		}
 	};
 	static CGarbo Garbo;
+	void regist(std::string, ClientType);
 public:
     static RegisterHandler * shareInstance();
-    static void regist(std::string, ClientType);
+	//override
+	void handle();
+	void inputInfo();
 };
 
 #endif

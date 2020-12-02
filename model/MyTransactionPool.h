@@ -33,10 +33,12 @@ private:
     int vpub;
 
     vector<MyTransaction *> transactionsArray;
+    vector<uint256> nullifiersArray;
 
 public:
     static MyTransactionPool * shareInstance();
     void addTransaction(MyTransaction *, int);
+    void addNullifier(uint256);
 };
 
 

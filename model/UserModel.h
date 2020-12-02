@@ -33,6 +33,7 @@ public:
     std::string getName();
     ClientType getUserType();
     SproutPaymentAddress getPaymentAddress();
+    SproutSpendingKey getSpendingKey();
     std::string getAttribute();
     std::vector<SproutNote> getValidNotesArray();
 };

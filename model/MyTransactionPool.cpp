@@ -3,16 +3,31 @@
 
 MyTransactionPool * MyTransactionPool::instance = nullptr;
 
+MyTransactionPool * MyTransactionPool::shareInstance()
+{
+    if (!instance)
+    {
+        instance = new MyTransactionPool();
+    }
+    return instance;
+}
+
 void MyTransactionPool::addTransaction(MyTransaction *transaction, int amount)
 {
     this->transactionsArray.push_back(transaction);
     this->vpub += amount;
-    if (this->transactionsArray.size() > 3)
+    if (this->transactionsArray.size() > 0)
     {
         MyBlockChain *blockChain = Storage::shareInstance()->sharedBlockChain();
         blockChain->creatNewBlock(this->transactionsArray, amount);
+        blockChain->appendNullifierArray(this->nullifiersArray);
         this->transactionsArray.clear();
+        this->nullifiersArray.clear();
         amount = 0;
     }
-    
+}
+
+void MyTransactionPool::addNullifier(uint256 nullifier)
+{
+    this->nullifiersArray.push_back(nullifier);
 }

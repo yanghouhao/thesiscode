@@ -28,6 +28,23 @@ string Utils::decrypt(string attribute, string cipherText)
     return "";
 }
 
+SproutNotePlaintext Utils::deserializeNote(string)
+{
+    return SproutNotePlaintext();
+}
+
+string Utils::serializeNote(SproutNotePlaintext)
+{
+    return "";
+}
+
+string Utils::encryptKey(string publisherName, string recipientName)
+{
+    string res;
+    res = publisherName + " or " + recipientName;
+    return res;
+}
+
 /*
 InitializeOpenABE();
 

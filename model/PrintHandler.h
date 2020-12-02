@@ -2,8 +2,9 @@
 #define _PRINTHANDLER_H_
 
 #include "Storage.h"
+#include "BaseHandler.h"
 
-class PrintHandler
+class PrintHandler : public BaseHandler
 {
 private:
     PrintHandler(){};
@@ -14,16 +15,30 @@ private:
 		~CGarbo()
 		{
 			if(PrintHandler::instance)
+			{
+				if (PrintHandler::instance->model)
+				{
+					delete PrintHandler::instance->model;
+				}
+				
 				delete PrintHandler::instance;
+			}
+			
 		}
 	};
 	static CGarbo Garbo;
-
     void print(UserModel *);
+	void printUser();
+	void printSigleUser(std::string);
+    void printAllUser();
+
+	void printBlockchain();
+	void printBlockChainInfo();
 public:
     static PrintHandler * shareInstance();
-    void printSigleUser(std::string);
-    void printAllUser();
+	//override
+	void handle();
+	void inputInfo();
 };
 
 #endif

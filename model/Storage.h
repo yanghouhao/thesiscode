@@ -25,6 +25,7 @@ private:
                 {
                     delete user;
                 }
+                delete instance->storedBlockChain;
                 delete Storage::instance;
             }	
 		}

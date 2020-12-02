@@ -62,6 +62,11 @@ SproutPaymentAddress UserModel::getPaymentAddress()
     return this->address;
 }
 
+SproutSpendingKey UserModel::getSpendingKey()
+{
+    return this->spendingKey;
+}
+
 std::string UserModel::getAttribute()
 {
     std::string res;
