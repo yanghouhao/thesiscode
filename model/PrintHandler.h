@@ -15,12 +15,7 @@ private:
 		~CGarbo()
 		{
 			if(PrintHandler::instance)
-			{
-				if (PrintHandler::instance->model)
-				{
-					delete PrintHandler::instance->model;
-				}
-				
+			{	
 				delete PrintHandler::instance;
 			}
 			
@@ -31,7 +26,7 @@ private:
 	void printUser();
 	void printSigleUser(std::string);
     void printAllUser();
-
+	void printAllNoteValue();
 	void printBlockchain();
 	void printBlockChainInfo();
 

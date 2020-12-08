@@ -5,6 +5,7 @@
 #include <hash.h>
 #include <stdint.h>
 #include <memory>
+#include <vector>
 
 Utils * Utils::instance = nullptr;
 OpenABECryptoContext * Utils::cpabe = nullptr;
@@ -34,7 +35,8 @@ string Utils::encrypt(string policy, string plainText)
 string Utils::decrypt(string attribute, string cipherText)
 {
     string res;
-    bool result = this->cpabe->decrypt(attribute, cipherText, res);
+    this->cpabe->keygen(attribute, "key0");
+    bool result = this->cpabe->decrypt("key0", cipherText, res);
     if (!result)
     {
         res = "decrypt fail";
@@ -45,19 +47,21 @@ string Utils::decrypt(string attribute, string cipherText)
 
 SproutNotePlaintext Utils::deserializeNote(string note_string)
 {
-    CDataStream ss(SER_DISK, 0);
+    CDataStream ss(SER_NETWORK, 0);
+    ss.clear();
     SproutNotePlaintext res;
-    ss << note_string;
+    ss.write(note_string.c_str(), note_string.size());
     ss >> res;
     return res;
 }
 
 string Utils::serializeNote(SproutNotePlaintext note_pt)
 {
-    CDataStream ss(SER_DISK, 0);
+    CDataStream ss(SER_NETWORK, 0);
+    ss.clear();
     ss << note_pt;
-    string res;
-    ss >> res;
+    string res = ss.str();
+    ss.clear();
     return res;
 }
 

@@ -2,6 +2,7 @@
 
 #include "librustzcash.h"
 
+#include "TestHandler.h"
 #include "AuditHandler.h"
 #include "TransactionHandler.h"
 #include "RegisterHandler.h"
@@ -39,6 +40,13 @@ void init()
     auto blockChain = storage->sharedBlockChain();
     std::vector<MyTransaction *> noTransaction;
     blockChain->creatGeniusBlock(noTransaction, 1000);
+
+    UserModel *client = new UserModel("yangc", ClientTypeClient);
+    Storage::shareInstance()->addRegistedUser(client);
+
+    UserModel *auditor = new UserModel("yanga", ClientTypeAuditor);
+    auditor->addAuditee(client);
+    Storage::shareInstance()->addRegistedUser(auditor);
 }
 
 void end()
@@ -64,6 +72,10 @@ BaseHandler *handlerFactory(std::string command)
     {
         return AuditHandler::shareInstance();
     }
+    else if (command == "test")
+    {
+        return TestHandler::shareInstance();
+    }
     
 }
 
@@ -81,7 +93,7 @@ void printHelp()
 
 bool isInputValid(string command)
 {
-    return command == "HELP" || command == "regist" || command == "transaction" || command == "print" || command == "audit" || command == "X" || command == "EXIT";
+    return command == "test" || command == "HELP" || command == "regist" || command == "transaction" || command == "print" || command == "audit" || command == "X" || command == "EXIT";
 }
 
 int main()
@@ -89,7 +101,6 @@ int main()
     init();
 
     string command;
-    BaseHandler *handler;
     cout << "请输入命令，输入 HELP 获取帮助" << endl;
     printHelp();
     while (cin >> command)
@@ -98,6 +109,7 @@ int main()
         {
             cout << "输入无效，请重新输入" << endl;
             printHelp();
+            continue;
         }
 
         if (command == "X" || command == "EXIT")
@@ -111,9 +123,18 @@ int main()
             continue;
         }
         
+        BaseHandler *handler;
         handler = handlerFactory(command);
-        handler->inputInfo();
-        handler->handle();
+        if (handler)
+        {
+            handler->inputInfo();
+            handler->handle();
+        }
+        else
+        {
+            printHelp();
+            continue;
+        }
     }
     
     end();

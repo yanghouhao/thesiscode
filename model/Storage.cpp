@@ -20,7 +20,7 @@ Storage * Storage::shareInstance()
 
 void Storage::addRegistedUser(UserModel *user)
 {
-    instance->registedUserArray.push_back(user);
+    this->registedUserArray.push_back(user);
 }
 
 std::vector<UserModel *> Storage::getRegistedUserArray()

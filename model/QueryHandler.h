@@ -17,12 +17,7 @@ private:
 		~CGarbo()
 		{
 			if(QueryHandler::instance)
-			{
-				if (QueryHandler::instance->model)
-				{
-					delete QueryHandler::instance->model;
-				}
-				
+			{	
 				delete QueryHandler::instance;
 			}
 			
@@ -47,7 +42,6 @@ public:
 	void printHelp();
 	bool isValidInput(std::string);
 };
-
 
 #endif
 

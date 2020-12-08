@@ -15,11 +15,6 @@ private:
 		{
 			if(AuditHandler::instance)
 			{
-				if (AuditHandler::instance->model)
-				{
-					delete AuditHandler::instance->model;
-				}
-				
 				delete AuditHandler::instance;
 			}
 			

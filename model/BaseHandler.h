@@ -22,7 +22,7 @@ class BaseHandler
 private:
     
 public:
-    HandlerModel * model;
+    HandlerModel model;
     virtual void handle() = 0;
     virtual void inputInfo() = 0;
     virtual void printHelp() = 0;

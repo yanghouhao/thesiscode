@@ -4,6 +4,9 @@
 #include "Utils.h"
 #include "QueryHandler.h"
 
+#include <string>
+#include <array>
+
 TransactionHandler * TransactionHandler::instance = nullptr;
 
 TransactionHandler * TransactionHandler::shareInstance()
@@ -38,11 +41,17 @@ void TransactionHandler::create(string recipientName, int amount)
         JSOutput()// dummy output
     };
 
+    std::array<string, 2> apk_ptArray =
+    {
+        recipientAddress->a_pk.ToString(),
+        "123"
+    };
+
     auto joinSplitPubKey = Storage::shareInstance()->getJSPubKey();
 
     SproutMerkleTree tree;
     uint256 rt = tree.root();
-
+    std::cout << "开始生成证明" << endl;
     JSDescription *jsdesc = MyTransaction::makeSproutProof(
             inputs,
             outputs,
@@ -51,28 +60,34 @@ void TransactionHandler::create(string recipientName, int amount)
             vpub_new,
             rt
     );
-
+    std::cout << "证明生成完成" << endl;
+    
     uint252 phi = random_uint252();
     uint256 h_sig = jsdesc->h_sig(joinSplitPubKey);
     
     std::vector<SproutNotePlaintext> notesTextArray;
     std::array<unsigned char, ZC_MEMO_SIZE> memo;
     std::vector<string> cipherTextArray;
-
+    std::vector<string> addressCipherTextArray;
     string encryptKey = recipientName;
-
     for (size_t i = 0; i < 2; i++) 
     {
         uint256 r = random_uint256();
         auto note = outputs[i].note(phi, r, i, h_sig);
+        
         SproutNotePlaintext note_pt(note, memo);
         string plainText = Utils::shareInstance()->serializeNote(note_pt);
-        string cipherText = Utils::shareInstance()->encrypt(plainText, encryptKey);
+        string cipherText = Utils::shareInstance()->encrypt(encryptKey, plainText); 
         cipherTextArray.push_back(cipherText);
+
+        string addressString = apk_ptArray[i];
+        string addressStringCipherText = Utils::shareInstance()->encrypt(encryptKey, addressString);
+        addressCipherTextArray.push_back(addressStringCipherText);
     }
 
-    MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTreate);
+    MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTreate, addressCipherTextArray);
     this->storeTransaction(transaction, amount);
+    std::cout << "交易创建完成" << endl;
     delete recipientAddress;
 }
 
@@ -81,7 +96,7 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
     QueryHandler *query = QueryHandler::shareInstance();
     if (!query->isAccountMoneyValid(publisher, amount))
     {
-        cout << publisher << "的账户余额不足，无法进行转账交易" << endl;
+        std::cout << publisher << "的账户余额不足，无法进行转账交易" << endl;
         return;
     }
 
@@ -117,21 +132,32 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
         inputs[0] = JSInput();
         inputs[1] = JSInput(tree.witness(), note, *publisherSpendingKey);
         std::array<JSOutput, 2> outputs;
+        std::array<string, 2> apk_ptArray;
 
         int value = note.value();
         if (value < transferValue)
         { 
             outputs[0] =  JSOutput(*recipientAddress, value),
             outputs[1] =  JSOutput();
+            apk_ptArray =
+            {
+                recipientAddress->a_pk.ToString(),
+                "123"
+            };
             transferValue -= value;       
         }
         else
         {
             outputs[0] =  JSOutput(*recipientAddress, transferValue);
             outputs[1] =  JSOutput(*publisherAddress, value - transferValue);
+            apk_ptArray =
+            {
+                recipientAddress->a_pk.ToString(),
+                publisherAddress->a_pk.ToString()
+            };
             transferValue = 0;
         }
-        
+        std::cout << "开始生成证明" << endl;
         jsdesc = MyTransaction::makeSproutProof(
                                                 inputs,
                                                 outputs,
@@ -142,23 +168,27 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
                                             );
 
         uint256 h_sig = jsdesc->h_sig(joinSplitPubKey);
+        std::vector<string> addressCipherTextArray;
         for (size_t i = 0; i < 2; i++) 
         {
             uint256 r = random_uint256();
             auto note = outputs[i].note(phi, r, i, h_sig);
             SproutNotePlaintext note_pt(note, memo);
             string plainText = Utils::shareInstance()->serializeNote(note_pt);
-            string cipherText = Utils::shareInstance()->encrypt(plainText, encryptKey);
+            string cipherText = Utils::shareInstance()->encrypt(encryptKey, plainText);
             cipherTextArray.push_back(cipherText);
+
+            string addressString = apk_ptArray[i];
+            string addressStringCipherText = Utils::shareInstance()->encrypt(encryptKey, addressString);
+            addressCipherTextArray.push_back(addressStringCipherText);
         }
-        MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTransfer);
+        MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTransfer, addressCipherTextArray);
         this->storeTransaction(transaction, amount);
     }
-    
+    std::cout << "交易创建完成" << endl;
     delete publisherSpendingKey;
     delete jsdesc;
     delete publisherAddress;
-    
 }
 
 void TransactionHandler::storeTransaction(MyTransaction *transaction, int amount)
@@ -169,13 +199,8 @@ void TransactionHandler::storeTransaction(MyTransaction *transaction, int amount
 }
 
 void TransactionHandler::handle()
-{
-    if (!this->model)
-    {
-        cout << "输入有误，请重新输入" << endl;
-    }
-    
-    string order = this->model->getOrders().front();
+{    
+    string order = this->model.getOrders().front();
     if (order == "X")
     {
         return;
@@ -184,23 +209,23 @@ void TransactionHandler::handle()
     {
         string userName;
         int amount;
-        cout << "请输入用户名" << endl;
-        while (cin >> userName)
+        std::cout << "请输入用户名" << endl;
+        while (std::cin >> userName)
         {
             if (!Storage::shareInstance()->getSingleUserByName(userName))
             {
-                cout << "没有这个用户，请重新输入" << endl;
+                std::cout << "没有这个用户，请重新输入" << endl;
                 continue;
             }
             break;
         }
 
-        cout << "请输入转进金额" << endl;
-        cin >> amount;
+        std::cout << "请输入转进金额" << endl;
+        std::cin >> amount;
 
         if (Storage::shareInstance()->getVpub() < amount)
         {
-            cout << "金额无效，超出透明池范围" << endl;
+            std::cout << "金额无效，超出透明池范围" << endl;
             return;
         }
         
@@ -211,8 +236,8 @@ void TransactionHandler::handle()
         string userNameP;
         string userNameR;
         int amount;
-        cout << "请输入支付用户名" << endl;
-        while (cin >> userNameP)
+        std::cout << "请输入支付用户名" << endl;
+        while (std::cin >> userNameP)
         {
             if (userNameP == "X")
             {
@@ -221,14 +246,14 @@ void TransactionHandler::handle()
             
             if (!Storage::shareInstance()->getSingleUserByName(userNameP))
             {
-                cout << "没有这个用户，请重新输入" << endl;
+                std::cout << "没有这个用户，请重新输入" << endl;
                 continue;
             }
             break;
         }
 
-        cout << "请输入接受用户名" << endl;
-        while (cin >> userNameR)
+        std::cout << "请输入接受用户名" << endl;
+        while (std::cin >> userNameR)
         {
             if (userNameR == "X")
             {
@@ -237,18 +262,18 @@ void TransactionHandler::handle()
 
             if (!Storage::shareInstance()->getSingleUserByName(userNameR))
             {
-                cout << "没有这个用户，请重新输入" << endl;
+                std::cout << "没有这个用户，请重新输入" << endl;
                 continue;
             }
             break;
         }
 
-        cout << "请输入交易金额" << endl;
-        cin >> amount;
+        std::cout << "请输入交易金额" << endl;
+        std::cin >> amount;
 
         if (!QueryHandler::shareInstance()->isAccountMoneyValid(userNameP, amount))
         {
-            cout << "没有足够的金额" << endl;
+            std::cout << "没有足够的金额" << endl;
             return;
         }
         
@@ -261,20 +286,15 @@ void TransactionHandler::handle()
 
 void TransactionHandler::inputInfo()
 {
-    if (this->model)
-    {
-        delete this->model;
-    }
-
     this->printHelp();
 
     string order;
 
-    while (cin >> order)
+    while (std::cin >> order)
     {
         if (!this->isValidInput(order))
         {
-            cout << "输入有误，请重新输入" << endl;
+            std::cout << "输入有误，请重新输入" << endl;
             this->printHelp();
         }
 
@@ -284,8 +304,8 @@ void TransactionHandler::inputInfo()
             continue;
         }
         
-        this->model = new HandlerModel();
-        this->model->addOrder(order);
+        this->model = HandlerModel();
+        this->model.addOrder(order);
         return;
     }
     
@@ -293,12 +313,12 @@ void TransactionHandler::inputInfo()
 
 void TransactionHandler::printHelp()
 {
-    cout << "请输入要执行的交易" << endl;
-    cout << "creat 代表从透明池向隐私池转账" << endl;
-    cout << "transfer 代表隐私池之间的转账" << endl;
+    std::cout << "请输入要执行的交易" << endl;
+    std::cout << "creat 代表从透明池向隐私池转账" << endl;
+    std::cout << "transfer 代表隐私池之间的转账" << endl;
     //cout << "new 代表新增透明池" << endl;
-    cout << "HELP 显示帮助" << endl;
-    cout << "X 退出" << endl;
+    std::cout << "HELP 显示帮助" << endl;
+    std::cout << "X 退出" << endl;
 }
 	
 bool TransactionHandler::isValidInput(std::string order)

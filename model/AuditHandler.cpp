@@ -18,13 +18,7 @@ AuditHandler * AuditHandler::shareInstance()
 
 void AuditHandler::handle()
 {
-    if (!this->model || this->model->getOrders().size() != 2)
-    {
-        cout << "输入有误，请重新输入" << endl;
-        return;
-    }
-
-    string order = this->model->getOrders()[1];
+    string order = this->model.getOrders()[1];
 
     if (order == "X")
     {
@@ -49,10 +43,6 @@ void AuditHandler::handle()
 
 void AuditHandler::inputInfo()
 {
-    if (this->model)
-    {
-        delete this->model;
-    }
     string s;
     cout << endl << "请输入审计员姓名： ";
     cin >> s;
@@ -71,8 +61,8 @@ void AuditHandler::inputInfo()
         this->printHelp();
         if (this->isValidInput(order))
         {
-            this->model = new HandlerModel();
-            this->model->addOrder(order);
+            this->model = HandlerModel();
+            this->model.addOrder(order);
             return;
         }
         else if (order == "HELP")
@@ -89,7 +79,7 @@ void AuditHandler::showAllNote(std::string userName)
 
 void AuditHandler::showAuditee()
 {
-    PrintHandler::shareInstance()->printAuditee(this->model->getOrders().front());
+    PrintHandler::shareInstance()->printAuditee(this->model.getOrders().front());
 }
 
 void AuditHandler::printHelp()

@@ -52,6 +52,13 @@ void PrintHandler::print(UserModel *user)
     string userType = user->getUserType() == ClientTypeClient ? "client" : "auditor";
     cout << "userType : " << userType << endl;
     cout << "userAccount : " << QueryHandler::shareInstance()->queryUserAccount(user->getName()) << endl;
+    cout << "userpk : " << user->getPaymentAddress().a_pk.ToString() << endl;
+    auto noteArray = QueryHandler::shareInstance()->queryUserValidNotesArray(user->getName());
+    for (auto &&note : noteArray)
+    {
+        this->printNote(note);
+    }
+    
     cout << "-----------------------------" << endl;
 }
 
@@ -65,13 +72,7 @@ void PrintHandler::printBlockChainInfo()
 
 void PrintHandler::handle()
 {
-    if (!this->model)
-    {
-        cout << "输入有误，请重新输入" << endl;
-        return;
-    }
-
-    for (auto &&order : this->model->getOrders())
+    for (auto &&order : model.getOrders())
     {
         if (order == "BLOCKCHAIN")
         {
@@ -97,11 +98,6 @@ void PrintHandler::handle()
 
 void PrintHandler::inputInfo()
 {
-    if (this->model)
-    {
-        delete this->model;
-    }
-
     string printObject;
     this->printHelp();
 
@@ -124,8 +120,8 @@ void PrintHandler::inputInfo()
                 this->printHelp();
             } else if (printObject == "X")
             {
-                this->model = new HandlerModel();
-                this->model->addOrder(printObject);
+                model = HandlerModel();
+                model.addOrder(printObject);
                 return;
             }
             
@@ -146,14 +142,14 @@ void PrintHandler::printUser()
     
     vector<string> orders;
     orders.push_back(userName);
-    this->model = new HandlerModel(orders);
+    this->model = HandlerModel(orders);
 }
 
 void PrintHandler::printBlockchain()
 {
     vector<string> orders;
     orders.push_back("BLOCKCHAIN");
-    this->model = new HandlerModel(orders);
+    this->model = HandlerModel(orders);
 }
 
 void PrintHandler::printAuditee(std::string userName)

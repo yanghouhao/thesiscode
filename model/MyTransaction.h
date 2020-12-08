@@ -21,10 +21,11 @@ public:
     //property
     JSDescription *jsDescription;
     std::vector<string> cipherTextArrayWithABE;
+    std::vector<string> apkArray;
     TransactionType type;
 
     //con/destruct
-    MyTransaction(JSDescription *, std::vector<string>, TransactionType);
+    MyTransaction(JSDescription *, std::vector<string>, TransactionType, std::vector<string>);
     MyTransaction();
     ~MyTransaction();
     

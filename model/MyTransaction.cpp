@@ -6,13 +6,15 @@
 using namespace oabe;
 using namespace oabe::crypto;
 
-MyTransaction::MyTransaction(JSDescription *jsDescription, std::vector<string> cipherTextArrayWithABE,TransactionType type)
+MyTransaction::MyTransaction(JSDescription *jsDescription, std::vector<string> cipherTextArrayWithABE,TransactionType type, std::vector<string> apkArray)
 {
     this->jsDescription = jsDescription;
 
     this->cipherTextArrayWithABE = cipherTextArrayWithABE;
 
     this->type = type;
+
+    this->apkArray = apkArray;
 }
 
 MyTransaction::~MyTransaction()

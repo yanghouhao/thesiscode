@@ -16,10 +16,6 @@ private:
 		{
 			if(TransactionHandler::instance)
 			{
-				if (TransactionHandler::instance->model)
-				{
-					delete TransactionHandler::instance->model;
-				}
 				delete TransactionHandler::instance;
 			}
 		}

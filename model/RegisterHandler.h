@@ -16,10 +16,6 @@ private:
 		{
 			if(RegisterHandler::instance)
 			{
-				if (RegisterHandler::instance->model)
-				{
-					delete RegisterHandler::instance->model;
-				}
 				delete RegisterHandler::instance;
 			}
 				

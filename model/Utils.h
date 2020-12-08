@@ -41,4 +41,14 @@ public:
     string encryptKey(string, string);
 };
 
+template<class T, size_t N, typename V>
+std::array<T, N> to_array(V v)
+{
+    assert(v.size() == N);
+    std::array<T, N> d;
+    using std::begin; using std::end; 
+    std::copy( begin(v), end(v), begin(d) ); // this is the recommended way
+    return d;
+}
+
 #endif

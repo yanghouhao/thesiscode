@@ -36,7 +36,7 @@ private:
     Ed25519VerificationKey joinSplitPubKey;
 public:
     static Storage * shareInstance();
-    static void addRegistedUser(UserModel *);
+    void addRegistedUser(UserModel *);
     std::vector<UserModel *> getRegistedUserArray();
     UserModel *getSingleUserByName(std::string);
     uint64_t getVpub();

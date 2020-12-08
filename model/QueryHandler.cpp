@@ -28,7 +28,7 @@ SproutSpendingKey * QueryHandler::queryUserSpendingKey(std::string userName)
 int QueryHandler::queryUserAccount(std::string userName)
 {
     std::vector<libzcash::SproutNote> noteArray = this->queryUserValidNotesArray(userName);
-    int res = 0;
+    unsigned int res = 0;
 
     for (auto &&note : noteArray)
     {
@@ -61,19 +61,27 @@ std::vector<libzcash::SproutNote> QueryHandler::queryUserValidNotesArray(std::st
         for (auto &&transaction : transactionsArray)
         {
             vector<string> cipherTextArray = transaction->cipherTextArrayWithABE;
+            vector<string> addressCTArray = transaction->apkArray;
 
-            for (auto &&ciphertext : cipherTextArray)
+            Utils *util = Utils::shareInstance();
+            for (size_t i = 0; i < 2; i++)
             {
-                Utils *util = Utils::shareInstance();
+                string ciphertext = cipherTextArray[i];
                 string note_string = util->decrypt(userName, ciphertext);
                 if (note_string == "decrypt fail")
+                {
+                    continue;
+                }
+                string apkCipherText = addressCTArray[i];
+                string apkPlainText = util->decrypt(userName, apkCipherText);
+                if (apkPlainText == "decrypt fail" || apkPlainText != paymentAddress->a_pk.ToString())
                 {
                     continue;
                 }
                 
                 SproutNotePlaintext note_pt = util->deserializeNote(note_string);
                 SproutNote note = note_pt.note(*paymentAddress);
-                if (!bc->isNoteNullified(note, *spendingKey) && note.a_pk == paymentAddress->a_pk)
+                if (!bc->isNoteNullified(note, *spendingKey))
                 {
                     res.push_back(note);
                 }
@@ -104,12 +112,20 @@ std::vector<libzcash::SproutNote> QueryHandler::queryUserAllNotesArray(std::stri
         for (auto &&transaction : transactionsArray)
         {
             vector<string> cipherTextArray = transaction->cipherTextArrayWithABE;
+            vector<string> addressCTArray = transaction->apkArray;
 
-            for (auto &&ciphertext : cipherTextArray)
+            Utils *util = Utils::shareInstance();
+            for (size_t i = 0; i < 2; i++)
             {
-                Utils *util = Utils::shareInstance();
+                string ciphertext = cipherTextArray[i];
                 string note_string = util->decrypt(userName, ciphertext);
                 if (note_string == "decrypt fail")
+                {
+                    continue;
+                }
+                string apkCipherText = addressCTArray[i];
+                string apkPlainText = util->decrypt(userName, apkCipherText);
+                if (apkPlainText == "decrypt fail" || apkPlainText != paymentAddress->a_pk.ToString())
                 {
                     continue;
                 }
@@ -135,13 +151,7 @@ bool QueryHandler::isValidAuditor(std::string userName)
 
 void QueryHandler::handle()
 {
-    if (!this->model)
-    {
-        cout << "输入有误，请重新输入" << endl;
-        return;
-    }
-
-    if (this->model->getOrders().front() == "X")
+    if (this->model.getOrders().front() == "X")
     {
         return;
     }
@@ -160,11 +170,6 @@ void QueryHandler::handle()
 
 void QueryHandler::inputInfo()
 {
-    if (this->model)
-    {
-        delete this->model;
-    }
-
     string userName;
     cout << "请输入需要查询的用户名" << endl;
     while (cin >> userName)
@@ -203,8 +208,8 @@ void QueryHandler::inputInfo()
             continue;
         }
 
-        this->model = new HandlerModel();
-        this->model->addOrder(order);
+        this->model = HandlerModel();
+        this->model.addOrder(order);
         return;
     }
 }

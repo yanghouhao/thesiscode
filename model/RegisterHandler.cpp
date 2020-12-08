@@ -19,12 +19,7 @@ void RegisterHandler::regist(std::string userName, ClientType clientType)
 
 void RegisterHandler::handle()
 {
-    if (!this->model)
-    {
-        cout << "输入有误，请重新输入" << endl;
-    }
-
-    string order = this->model->getOrders().front();
+    string order = this->model.getOrders().front();
 
     if (order == "X")
     {
@@ -32,7 +27,7 @@ void RegisterHandler::handle()
     }
 
     string userName;
-
+    cout << "请输入用户名" << endl;
     while (cin >> userName)
     {
         UserModel *user = Storage::shareInstance()->getSingleUserByName(userName);
@@ -40,6 +35,8 @@ void RegisterHandler::handle()
         {
             cout << "用户名存在" << endl;
         }
+
+        break;
     }
 
     string userType;
@@ -49,17 +46,14 @@ void RegisterHandler::handle()
     ClientType type;
     while (cin >> userType)
     {
-        if (userType != "client" && userType != "auditor")
-        {
-            cout << "输入有误，请重新输入" << endl;
-            cout << "client 代表普通用户" << endl;
-            cout << "auditor 代表审计员" << endl;
-        }
-
         if (userType == "client" || userType == "auditor")
         {
             type = userType == "client" ? ClientTypeClient : ClientTypeAuditor;
             break;
+        }
+        else
+        {
+            continue;
         }
     }
     
@@ -68,11 +62,6 @@ void RegisterHandler::handle()
 
 void RegisterHandler::inputInfo()
 {
-    if (this->model)
-    {
-        delete this->model;
-    }
-
     string order;
 
     while (cin >> order)
@@ -90,8 +79,8 @@ void RegisterHandler::inputInfo()
             continue;
         }
         
-        this->model = new HandlerModel();
-        this->model->addOrder(order);
+        this->model = HandlerModel();
+        this->model.addOrder(order);
         return;  
     }
     
