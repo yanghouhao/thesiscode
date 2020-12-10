@@ -19,6 +19,7 @@ include_directories(../
         ${TJFOC_SPROUT_SOURCE}/rust/include)
 
 find_package(OpenSSL REQUIRED)
+#find_package (CryptoPP REQUIRED)
 find_package(unofficial-secp256k1 CONFIG REQUIRED)
 
 aux_source_directory(. SRC_LIST)

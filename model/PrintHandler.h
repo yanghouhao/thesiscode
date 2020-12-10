@@ -30,8 +30,6 @@ private:
 	void printBlockchain();
 	void printBlockChainInfo();
 
-	void printNote(SproutNote);
-
 public:
     static PrintHandler * shareInstance();
 	//override
@@ -43,6 +41,7 @@ public:
 	void printAllTransaction(std::string);
 	void printHelp();
 	bool isValidInput(std::string);
+	void printNote(SproutNote);
 };
 
 #endif

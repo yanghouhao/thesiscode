@@ -34,6 +34,8 @@ public:
 	void inputInfo();
 	void printHelp();
 	bool isValidInput(std::string);
+	vector<clock_t> testCreatNote();
+	vector<clock_t> testTransferNote();
 };
 
 #endif

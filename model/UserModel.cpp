@@ -1,6 +1,28 @@
 #include "UserModel.h"
+#include "Utils.h"
 
 #include "string"
+
+UserKeyContext::UserKeyContext(/* args */)
+{
+    this->privateKey = Utils::shareInstance()->getRandomNumber();
+    G_t generator = Utils::shareInstance()->getGenerator();
+    this->publicKey = generator.exp(this->privateKey);
+}
+
+UserKeyContext::~UserKeyContext()
+{
+}
+
+G_t UserKeyContext::getPublicKey()
+{
+    return this->publicKey;
+}
+
+ZP_t UserKeyContext::getPrivateKey()
+{
+    return this->privateKey;
+}
 
 UserModel::UserModel(std::string userName, ClientType userType = ClientTypeClient)
 {
@@ -17,6 +39,7 @@ UserModel::UserModel(UserModel *user)
     this->auditeeArray = user->auditeeArray;
     this->spendingKey = user->spendingKey;
     this->address = user->address;
+    
 }
 
 UserModel::~UserModel()

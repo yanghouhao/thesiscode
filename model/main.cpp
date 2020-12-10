@@ -1,4 +1,8 @@
 #include <iostream>
+#include <openabe/openabe.h>
+#include <openabe/zsymcrypto.h>
+
+#define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
 
 #include "librustzcash.h"
 
@@ -10,6 +14,9 @@
 #include "BaseHandler.h"
 
 #include "src/key.h"
+
+using namespace oabe;
+using namespace oabe::crypto;
 
 using namespace std;
 
@@ -44,14 +51,19 @@ void init()
     UserModel *client = new UserModel("yangc", ClientTypeClient);
     Storage::shareInstance()->addRegistedUser(client);
 
+    UserModel *client1 = new UserModel("yanghouhao", ClientTypeClient);
+    Storage::shareInstance()->addRegistedUser(client1);
+
     UserModel *auditor = new UserModel("yanga", ClientTypeAuditor);
     auditor->addAuditee(client);
     Storage::shareInstance()->addRegistedUser(auditor);
+    InitializeOpenABE();
 }
 
 void end()
 {
     ECC_Stop();
+    ShutdownOpenABE();
 }
 
 BaseHandler *handlerFactory(std::string command)

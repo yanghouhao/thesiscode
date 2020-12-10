@@ -67,13 +67,13 @@ std::vector<libzcash::SproutNote> QueryHandler::queryUserValidNotesArray(std::st
             for (size_t i = 0; i < 2; i++)
             {
                 string ciphertext = cipherTextArray[i];
-                string note_string = util->decrypt(userName, ciphertext);
+                string note_string = util->decryptCPABE(userName, ciphertext);
                 if (note_string == "decrypt fail")
                 {
                     continue;
                 }
                 string apkCipherText = addressCTArray[i];
-                string apkPlainText = util->decrypt(userName, apkCipherText);
+                string apkPlainText = util->decryptCPABE(userName, apkCipherText);
                 if (apkPlainText == "decrypt fail" || apkPlainText != paymentAddress->a_pk.ToString())
                 {
                     continue;
@@ -118,13 +118,13 @@ std::vector<libzcash::SproutNote> QueryHandler::queryUserAllNotesArray(std::stri
             for (size_t i = 0; i < 2; i++)
             {
                 string ciphertext = cipherTextArray[i];
-                string note_string = util->decrypt(userName, ciphertext);
+                string note_string = util->decryptCPABE(userName, ciphertext);
                 if (note_string == "decrypt fail")
                 {
                     continue;
                 }
                 string apkCipherText = addressCTArray[i];
-                string apkPlainText = util->decrypt(userName, apkCipherText);
+                string apkPlainText = util->decryptCPABE(userName, apkCipherText);
                 if (apkPlainText == "decrypt fail" || apkPlainText != paymentAddress->a_pk.ToString())
                 {
                     continue;

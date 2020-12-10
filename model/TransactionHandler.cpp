@@ -3,6 +3,7 @@
 #include "MyTransactionPool.h"
 #include "Utils.h"
 #include "QueryHandler.h"
+#include "PrintHandler.h"
 
 #include <string>
 #include <array>
@@ -77,11 +78,12 @@ void TransactionHandler::create(string recipientName, int amount)
         
         SproutNotePlaintext note_pt(note, memo);
         string plainText = Utils::shareInstance()->serializeNote(note_pt);
-        string cipherText = Utils::shareInstance()->encrypt(encryptKey, plainText); 
+        cout << "string里面有" << plainText.size() << endl;
+        string cipherText = Utils::shareInstance()->encryptCPABE(encryptKey, plainText); 
         cipherTextArray.push_back(cipherText);
 
         string addressString = apk_ptArray[i];
-        string addressStringCipherText = Utils::shareInstance()->encrypt(encryptKey, addressString);
+        string addressStringCipherText = Utils::shareInstance()->encryptCPABE(encryptKey, addressString);
         addressCipherTextArray.push_back(addressStringCipherText);
     }
 
@@ -106,7 +108,7 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
         return;
     }
 
-    SproutMerkleTree tree;
+    
     JSDescription *jsdesc;
     SproutPaymentAddress * publisherAddress = query->queryUserAddress(publisher);
     SproutSpendingKey * publisherSpendingKey = query->queryUserSpendingKey(publisher);
@@ -115,17 +117,18 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
     std::array<unsigned char, ZC_MEMO_SIZE> memo;
 
     int transferValue = amount;
-    std::vector<string> cipherTextArray;
+    
 
     string encryptKey = Utils::shareInstance()->encryptKey(publisher, recipient);
 
     for (auto &&note : noteArray)
     {
+        std::vector<string> cipherTextArray;
         if (transferValue == 0)
         {
             break;
         }
-        
+        SproutMerkleTree tree;
         tree.append(note.cm());
         uint252 phi = random_uint252();
         std::array<JSInput, 2> inputs;
@@ -135,7 +138,7 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
         std::array<string, 2> apk_ptArray;
 
         int value = note.value();
-        if (value < transferValue)
+        if (value <= transferValue)
         { 
             outputs[0] =  JSOutput(*recipientAddress, value),
             outputs[1] =  JSOutput();
@@ -172,14 +175,17 @@ void TransactionHandler::transfer(string publisher, string recipient, int amount
         for (size_t i = 0; i < 2; i++) 
         {
             uint256 r = random_uint256();
-            auto note = outputs[i].note(phi, r, i, h_sig);
-            SproutNotePlaintext note_pt(note, memo);
+            auto newNote = outputs[i].note(phi, r, i, h_sig);
+            SproutNotePlaintext note_pt(newNote, memo);
+            cout << "第" << i + 1 << "个note的信息" << endl;
+            PrintHandler::shareInstance()->printNote(newNote);
+
             string plainText = Utils::shareInstance()->serializeNote(note_pt);
-            string cipherText = Utils::shareInstance()->encrypt(encryptKey, plainText);
+            string cipherText = Utils::shareInstance()->encryptCPABE(encryptKey, plainText);
             cipherTextArray.push_back(cipherText);
 
             string addressString = apk_ptArray[i];
-            string addressStringCipherText = Utils::shareInstance()->encrypt(encryptKey, addressString);
+            string addressStringCipherText = Utils::shareInstance()->encryptCPABE(i & 1 ? publisher : recipient, addressString);
             addressCipherTextArray.push_back(addressStringCipherText);
         }
         MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTransfer, addressCipherTextArray);
@@ -324,4 +330,101 @@ void TransactionHandler::printHelp()
 bool TransactionHandler::isValidInput(std::string order)
 {
     return order == "new" || order == "creat" || order == "HELP" || order == "transfer" || order == "X";
+}
+
+vector<clock_t> TransactionHandler::testCreatNote()
+{
+    vector<clock_t> res;
+    string recipientName = "yangc";
+    int amount = 1;
+    uint64_t vpub_old = Storage::shareInstance()->getVpub();
+    uint64_t vpub_new = vpub_old - amount;
+
+    SproutPaymentAddress * recipientAddress = QueryHandler::shareInstance()->queryUserAddress(recipientName);
+    auto startGenerate = clock();
+    std::array<JSInput, 2> inputs = 
+    {
+        JSInput(), // dummy input
+        JSInput() // dummy input
+    };
+
+    std::array<JSOutput, 2> outputs = 
+    {
+        JSOutput(*recipientAddress, amount),
+        JSOutput()// dummy output
+    };
+
+    std::array<string, 2> apk_ptArray =
+    {
+        recipientAddress->a_pk.ToString(),
+        "123"
+    };
+
+    auto joinSplitPubKey = Storage::shareInstance()->getJSPubKey();
+
+    SproutMerkleTree tree;
+    uint256 rt = tree.root();
+    JSDescription *jsdesc = MyTransaction::makeSproutProof(
+            inputs,
+            outputs,
+            joinSplitPubKey,
+            vpub_old,
+            vpub_new,
+            rt
+    );
+    auto endGenerate = clock();
+    uint252 phi = random_uint252();
+    uint256 h_sig = jsdesc->h_sig(joinSplitPubKey);
+    
+    std::vector<SproutNotePlaintext> notesTextArray;
+    std::array<unsigned char, ZC_MEMO_SIZE> memo;
+    std::vector<string> cipherTextArray;
+    std::vector<string> addressCipherTextArray;
+    string encryptKey = recipientName;
+    auto startEnc = clock();
+    for (size_t i = 0; i < 2; i++) 
+    {
+        uint256 r = random_uint256();
+        auto note = outputs[i].note(phi, r, i, h_sig);
+        
+        SproutNotePlaintext note_pt(note, memo);
+        string plainText = Utils::shareInstance()->serializeNote(note_pt);
+        string cipherText = Utils::shareInstance()->encryptCPABE(encryptKey, plainText); 
+        cipherTextArray.push_back(cipherText);
+
+        string addressString = apk_ptArray[i];
+        string addressStringCipherText = Utils::shareInstance()->encryptCPABE(encryptKey, addressString);
+        addressCipherTextArray.push_back(addressStringCipherText);
+    }
+    auto endEnc = clock();
+    MyTransaction *transaction = new MyTransaction(jsdesc, cipherTextArray, TransactionTypeTreate, addressCipherTextArray);
+    //this->storeTransaction(transaction, amount);
+    
+
+    auto startVerify = clock();
+    MyTransaction::verifySproutProof(*jsdesc, joinSplitPubKey);
+    auto endVerify = clock();
+
+    auto startDec = clock();
+    for (size_t i = 0; i < 2; i++) 
+    {
+        string cipherText = cipherTextArray[i];
+        string plainText = Utils::shareInstance()->decryptCPABE(encryptKey, cipherText);
+        SproutNotePlaintext pt = Utils::shareInstance()->deserializeNote(plainText);
+        string addressText = addressCipherTextArray[i];
+        string address = Utils::shareInstance()->decryptCPABE(encryptKey, addressText);
+    }
+    clock_t endDec = clock();
+    delete recipientAddress;
+    res.push_back((endGenerate - startGenerate));
+    res.push_back((endEnc - startEnc));
+    res.push_back((endVerify - startVerify));
+    res.push_back((endDec - startDec));
+    res.push_back(sizeof(*transaction));
+    return res;
+}
+
+vector<clock_t> TransactionHandler::testTransferNote()
+{
+    
 }
